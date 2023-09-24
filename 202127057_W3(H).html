@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>202127057_최윤교</title>
+    <link href="main.css" rel="stylesheet" type="text/css" />
+    <style>
+        .template{
+            border: 400px;
+        }
+        .top {
+            float: top;
+            border: 30px solid #FD8A8A;
+            width: 45%;
+            box-sizing: border-box;
+        }
+
+        .left {
+            float: left;
+            border: 30px solid #F1F7B5;
+            width: 10%;
+            box-sizing: border-box;
+        }
+
+        .right {
+            float: left;
+            border: 80px solid #A8D1D1;
+            width: 35%;
+            box-sizing: border-box;
+        }
+
+        #profilePic {
+            width: 50px;
+            height: 50px;
+            border-radius: 25px;
+            display: none;
+        }
+
+        #logInBtn {
+            height: 30px;
+            margin-left: 15px;
+        }
+
+        #textbox {
+            width: 200px;
+            height: 200px;
+            padding: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="template">
+        <div class="top">
+            <h1>
+                <img id="profilePic"
+                    src="https://ilovecharacter.com/news/data/20200717/p179567596843535_917_h.jpg?1625108055389" alt="">
+                <span id="welcomeMsg">로그인</span>
+                <input id="loginInput" type="text"><input id="loginBtn" type="button" value="Login">
+            </h1>
+        </div>
+        <div class="mid">
+            <div class="left">
+                <input class="btns" id="btn1" type="button" value="버튼1"><br>
+                <input class="btns" id="btn2" type="button" value="버튼2"><br>
+                <input class="btns" id="btn3" type="button" value="버튼3"><br>
+            </div>
+            <div class="right">
+                <textarea name="" id="textbox"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let isLoggedIn = false;
+
+        function toggleLogin() {
+
+            if (!isLoggedIn) {
+                var username = document.getElementById('loginInput').value;
+                if (username != '') {
+                    isLoggedIn = true;
+                    document.getElementById('loginInput').style.display = 'none';
+                    document.getElementById('welcomeMsg').textContent = username + '님';
+                    document.getElementById('profilePic').style.display = 'none';
+                    document.getElementById('loginBtn').value = 'Logout'; // 수정: 로그인 버튼 텍스트 변경
+                }
+
+                else {
+                    alert("아이디 X");
+                }
+            }
+            else {
+                isLoggedIn = false;
+                document.getElementById('loginInput').style.display = 'inline-block';
+                document.getElementById('welcomeMsg').textContent = "로그인";
+                document.getElementById('profilePic').style.display = 'none';
+                document.getElementById('loginBtn').value = 'Login'; // 수정: 로그아웃 버튼 텍스트 변경
+            }
+        }
+
+        document.getElementById('loginBtn').addEventListener('click', toggleLogin);
+
+        let btnContents = {
+            btn1: "최윤교입니다.",
+            btn2: " ^^;; ",
+            btn3: ""
+        };
+
+        let textbox = document.getElementById('textbox');
+
+        function ButtonClick(btnId) {
+            if (btnContents[btnId] === "") {
+                if (textbox.value === "저장되었습니다" || textbox.value === "") {
+                    alert("내용이 없습니다.");
+                    return;
+                }
+
+                for (let otherBtnId in btnContents) {
+                    if (btnContents[otherBtnId] === textbox.value) {
+                        btnContents[btnId] = textbox.value;
+                        btnContents[otherBtnId] = "";
+                        textbox.value = "저장되었습니다";
+                        return;
+                    }
+                }
+            }
+
+            textbox.value = btnContents[btnId];
+        }
+
+        document.getElementById('btn1').addEventListener('click', function () {
+            ButtonClick('btn1');
+        });
+
+        document.getElementById('btn2').addEventListener('click', function () {
+            ButtonClick('btn2');
+        });
+
+        document.getElementById('btn3').addEventListener('click', function () {
+            ButtonClick('btn3');
+        });
+
+    </script>
+</body>
+</html>
